@@ -1,0 +1,22 @@
+{
+    "extends": "./tsconfig.json",
+    "include": [
+        "tests",
+        "src",
+        "types"
+    ],
+    "exclude": [
+        "dist",
+        "node_modules"
+    ],
+    "compilerOptions": {
+        "noEmit": true,
+        "types": [
+            "jest",
+            "node",
+            "./types/jest" // Add this too
+        ],
+        "module": "nodenext",
+        "moduleResolution": "nodenext"
+    }
+}
