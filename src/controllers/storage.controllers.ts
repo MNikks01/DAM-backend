@@ -21,9 +21,8 @@ export const generatePresignedUrl = catchAsync(
       // Generate a unique key/path for the file
       const ext = path.extname(fileName);
       const id = uuidv4();
-      const objectKey = `uploads/${new Date().getFullYear()}/${
-        new Date().getMonth() + 1
-      }/${id}${ext}`;
+      const objectKey = `uploads/${new Date().getFullYear()}/${new Date().getMonth() + 1
+        }/${id}${ext}`;
 
       // Generate presigned PUT URL (valid for 5 minutes)
       const url = await minioClient.presignedPutObject(
@@ -44,7 +43,9 @@ export const confirmUpload = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log("confirmUpload hit");
+      console.log("req.user from storage.controllers.ts", req.user)
       if (!req.user) {
+        console.log("unauthorized 401");
         return next(new AppError("Unauthorized", 401));
         // return res.status(401).json({ message: "Unauthorized" });
       }
@@ -56,7 +57,7 @@ export const confirmUpload = catchAsync(
         return next(new AppError(`Missing field: fileName`, 400));
         // return res.status(400).json({ message: "Missing required fields" });
       }
-
+      console.log("req.body", req.body);
       // Create asset record in DB
       const asset = await Asset.create({
         key,

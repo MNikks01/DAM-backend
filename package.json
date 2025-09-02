@@ -9,12 +9,22 @@
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
     "worker": "ts-node --esm dist/workers/asset.worker.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --runInBand"
+    "test": "jest --detectOpenHandles --runInBand",
+    "test:unit": "jest tests/unit --detectOpenHandles --runInBand",
+    "test:integration": "jest tests/integration --detectOpenHandles --runInBand",
+    "test:storage": "jest tests/unit/storage.controllers.test.ts --detectOpenHandles --runInBand",
+    "test:error": "jest tests/unit/errorHandler.test.ts --detectOpenHandles --runInBand",
+    "test:async": "jest tests/unit/catchAsync.test.ts --detectOpenHandles --runInBand",
+    "test:watch": "jest --watch --detectOpenHandles --runInBand",
+    "test:verbose": "jest --verbose --detectOpenHandles --runInBand",
+    "test:coverage": "jest --coverage --detectOpenHandles --runInBand",
+    "test:authorize": "jest tests/unit/authorizeUploaderOrAdmin.test.ts --detectOpenHandles --runInBand"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.28.3",
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-typescript": "^7.27.1",
     "@jest/globals": "^30.1.2",

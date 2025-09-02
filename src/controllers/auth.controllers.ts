@@ -96,29 +96,23 @@ export const registerUser = catchAsync(
 export const loginUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
-    console.log("1");
     const user = await User.findOne({ email }).select("+password");
 
     console.log("Login attempt with email:", email);
 
-    console.log("2");
     if (!user) {
       return next(new AppError("Invalid email or password.", 401));
     }
 
-    console.log("3");
     const isMatch = await bcrypt.compare(password, user.password);
 
-    console.log("4");
     if (!isMatch) {
       return next(new AppError("Invalid email or password.", 401));
     }
 
-    console.log("5");
     if (!user.role)
       return next(new AppError("Invalid Request. Please login again", 401));
 
-    console.log("6");
     const accessToken = generateToken(
       { userId: user._id.toString(), team: user.team, role: user.role },
       JWT_ACCESS_SECRET_KEY,
@@ -130,17 +124,13 @@ export const loginUser = catchAsync(
       JWT_REFRESH_EXPIRES_IN
     );
 
-    console.log("7");
     if (!refreshToken || !accessToken)
       return next(new AppError("Missing authentication tokens.", 401));
 
-    console.log("8");
     user.refreshToken = refreshToken;
 
-    console.log("9");
     await user.save();
 
-    console.log("10");
     // Set token in HTTP-only cookie
     const isProduction = NODE_ENV === "production";
     res.cookie("token", accessToken, {
@@ -156,11 +146,9 @@ export const loginUser = catchAsync(
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    console.log("11");
     // Optionally exclude sensitive fields
     const { password: _, ...userData } = user.toObject();
 
-    console.log("12");
     res.status(200).json({
       success: true,
       message: "Login successful",

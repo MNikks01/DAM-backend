@@ -1,0 +1,15 @@
+export const CLIENT_URL = "http://localhost:3000";
+export const NODE_ENV = "test";
+export const PORT = 5000;
+export const MONGODB_URI = "mongodb://test:test@localhost:27017/test";
+export const JWT_ACCESS_SECRET_KEY = "test-access-secret";
+export const JWT_REFRESH_SECRET_KEY = "test-refresh-secret";
+export const REDIS_PASSWORD = "test-redis-password";
+export const REDIS_HOST = "localhost";
+export const REDIS_PORT = "6379";
+export const MINIO_ENDPOINT = "localhost";
+export const MINIO_PORT = "9000";
+export const MINIO_USE_SSL = "false";
+export const MINIO_ACCESS_KEY = "test-access-key";
+export const MINIO_SECRET_KEY = "test-secret-key";
+export const MINIO_BUCKET = "test-bucket";

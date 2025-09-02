@@ -13,10 +13,11 @@
         "noEmit": true,
         "types": [
             "jest",
-            "node",
-            "./types/jest" // Add this too
+            "node"
         ],
-        "module": "nodenext",
-        "moduleResolution": "nodenext"
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true
     }
 }

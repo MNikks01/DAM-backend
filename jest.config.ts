@@ -1,4 +1,6 @@
+// jest.config.ts
 import type { JestConfigWithTsJest } from "ts-jest";
+import { resolve } from "path";
 
 const config: JestConfigWithTsJest = {
   preset: "ts-jest",
@@ -6,26 +8,23 @@ const config: JestConfigWithTsJest = {
   testMatch: ["**/tests/**/*.test.ts"],
   moduleFileExtensions: ["ts", "js", "json"],
   transform: {
-    "^.+\\.ts$": ["ts-jest", {
-      useESM: true,
-      tsconfig: "./tsconfig.test.json",
-      // Add these for better ESM support
-      diagnostics: {
-        ignoreCodes: [1343]
-      },
-      astTransformers: {
-        before: [
-          {
-            path: 'node_modules/ts-jest-mock-import-meta',
-            options: { metaObjectReplacement: { url: 'file://' } }
-          }
-        ]
+    "^.+\\.ts$": [
+      "ts-jest",
+      {
+        tsconfig: "./tsconfig.test.json",
+        useESM: true,
       }
-    }],
+    ],
   },
-  extensionsToTreatAsEsm: [".ts"],
-  moduleNameMapping: {
+  transformIgnorePatterns: [
+    "node_modules/(?!(mongoose|mongodb-memory-server)/)",
+  ],
+  moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^src/configs/configs$': '<rootDir>/tests/mocks/configs.mock.ts',
+    '^src/configs/minio$': '<rootDir>/tests/mocks/minio.mock.ts',
+    '^src/models/asset.model$': '<rootDir>/tests/mocks/asset.model.mock.ts',
+    '^src/queue/queue$': '<rootDir>/tests/mocks/queue.mock.ts',
   },
   verbose: true,
   testTimeout: 30000,
